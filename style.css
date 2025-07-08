@@ -1,0 +1,288 @@
+/* --- 1. General Setup & Google Fonts --- */
+body {
+    font-family: 'Sarabun', sans-serif;
+    background-color: #121826; /* Dark blue background */
+    color: #F9FAFB; /* Off-white text */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* --- 2. Main Container --- */
+.converter-container {
+    background-color: #1A2035; /* Slightly lighter container */
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    max-width: 500px;
+    border: 1px solid #2A3045;
+}
+
+h1 {
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 25px;
+    color: #FFFFFF;
+}
+
+/* --- 3. Status Bar (Live Indicator) --- */
+.status-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 25px;
+    font-size: 14px;
+    color: #8C96B3;
+}
+
+.live-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #F59E0B; /* Amber color */
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(245, 158, 11, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+}
+
+/* --- 4. Conversion Form --- */
+.converter-form {
+    display: grid;
+    grid-template-columns: 1fr; /* Default for mobile */
+    gap: 15px;
+    align-items: flex-end;
+    position: relative;
+    margin-bottom: 25px;
+}
+
+/* Use 2 columns on larger screens */
+@media (min-width: 500px) {
+    .converter-form {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px 20px;
+    }
+    .converter-form .form-group:first-child {
+        grid-column: 1 / -1; 
+    }
+}
+
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #D1D5DB;
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 16px;
+    font-family: 'Sarabun', sans-serif;
+    font-weight: 600;
+    color: #FFFFFF;
+    background-color: #2A3045;
+    border: 1px solid #4B5563;
+    border-radius: 10px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.form-group select {
+    background-image: url('data:image/svg+xml;utf8,<svg fill="white" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 40px;
+}
+
+.form-group input:focus, .form-group select:focus {
+    outline: none;
+    border-color: #3B82F6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+.swap-icon {
+    display: none;
+}
+
+/* --- 5. Summary Display Area --- */
+.summary-area {
+    background-color: #2A3045;
+    border-radius: 10px;
+    padding: 20px 25px;
+    border: 1px solid #4B5563;
+}
+
+#summary-title {
+    margin: 0 0 15px 0;
+    text-align: center;
+    font-size: 18px;
+    color: #D1D5DB;
+    font-weight: 600;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    margin-bottom: 10px;
+    gap: 15px;
+}
+
+.summary-row span:first-child {
+    color: #8C96B3; /* Lighter text for labels */
+}
+
+.summary-row span:last-child {
+    font-weight: 600;
+    color: #FFFFFF;
+    text-align: right;
+}
+
+#fee-row span:last-child {
+    color: #F59E0B; /* Amber color for fee amount */
+}
+
+.summary-divider {
+    border: none;
+    height: 1px;
+    background-color: #4B5563;
+    margin: 15px 0;
+}
+
+.summary-row.total span {
+    font-size: 20px;
+    font-weight: 700;
+    color: #FFFFFF; /* Make total stand out */
+}
+
+
+/* --- 6. Service Fee Settings Section --- */
+.fee-section {
+    margin-top: 25px;
+    padding: 20px;
+    background-color: #1A2035;
+    border: 1px solid #2A3045;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+}
+
+.fee-toggle-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.fee-toggle-group h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.hidden-checkbox {
+    display: none;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 28px;
+    background-color: #4B5563;
+    border-radius: 28px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.toggle-switch::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: white;
+    top: 4px;
+    left: 4px;
+    transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.hidden-checkbox:checked + .toggle-switch {
+    background-color: #3B82F6;
+}
+
+.hidden-checkbox:checked + .toggle-switch::after {
+    transform: translateX(22px);
+}
+
+.fee-input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.fee-input-group label {
+    font-size: 14px;
+    color: #D1D5DB;
+}
+
+.fee-input-group input {
+    width: 100px; /* Increased width for THB amount */
+    padding: 8px 10px;
+    font-size: 16px;
+    font-family: 'Sarabun', sans-serif;
+    font-weight: 600;
+    color: #FFFFFF;
+    background-color: #2A3045;
+    border: 1px solid #4B5563;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.fee-input-group input:focus {
+    outline: none;
+    border-color: #3B82F6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+/* --- 7. Footer --- */
+.footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 12px;
+    color: #8C96B3;
+}
+
+.footer a {
+    color: #A5B4FC;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เครื่องคำนวณแลกเปลี่ยนเงิน</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="converter-container">
+        <h1>คำนวณยอดแลกเปลี่ยน</h1>
+        
+        <div class="status-bar">
+            <div class="live-dot"></div>
+            <p id="last-updated">กำลังดึงข้อมูลล่าสุด...</p>
+        </div>
+
+        <div class="converter-form">
+            <!-- ========== แก้ไข Label ของ Input ========== -->
+            <div class="form-group">
+                <label for="amount">จำนวนเงินที่ต้องการได้รับ</label>
+                <input type="number" id="amount" value="100" min="0">
+            </div>
+            
+            <div class="form-group">
+                <label for="to-currency">สกุลเงินที่จะรับ</label>
+                <select id="to-currency">
+                    <option value="USD">US Dollar (USD)</option>
+                    <option value="LTC">Litecoin (LTC)</option>
+                    <option value="THB">Thai Baht (THB)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="from-currency">สกุลเงินที่ใช้จ่าย</label>
+                <select id="from-currency">
+                    <option value="THB" selected>Thai Baht (THB)</option>
+                    <option value="USD">US Dollar (USD)</option>
+                    <option value="LTC">Litecoin (LTC)</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- ========== ออกแบบส่วนแสดงผลใหม่ทั้งหมด ========== -->
+        <div class="summary-area">
+            <h3 id="summary-title">สรุปยอดที่ต้องชำระ (THB)</h3>
+            <div class="summary-row">
+                <span>มูลค่าสินค้า (ยอดที่แลก)</span>
+                <span id="summary-base-cost">...</span>
+            </div>
+            <div class="summary-row" id="fee-row">
+                <span>ค่าบริการ</span>
+                <span id="summary-fee">+ ...</span>
+            </div>
+            <hr class="summary-divider">
+            <div class="summary-row total">
+                <span>ยอดชำระทั้งหมด</span>
+                <span id="summary-total-cost">...</span>
+            </div>
+        </div>
+        
+        <div class="fee-section">
+            <div class="fee-toggle-group">
+                <h3>คิดค่าบริการ</h3>
+                <input type="checkbox" id="fee-toggle" class="hidden-checkbox" checked>
+                <label for="fee-toggle" class="toggle-switch"></label>
+            </div>
+            <div class="fee-input-group">
+                <label for="fee-amount-thb">ค่าบริการ (บาท)</label>
+                <input type="number" id="fee-amount-thb" value="25" step="1" min="0">
+            </div>
+        </div>
+        
+        <div class="footer">
+            ข้อมูลราคาโดย <a href="https://www.coingecko.com" target="_blank">CoinGecko</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
