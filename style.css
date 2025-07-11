@@ -1,288 +1,103 @@
-/* --- 1. General Setup & Google Fonts --- */
+/* ... ส่วน :root, body, .bio-card, .profile-header, .section-title, .skills-grid เหมือนเดิม ... */
+:root {
+    --pastel-blue: #a0d2eb; --light-blue: #eaf6fb; --white: #ffffff; --dark-text: #4b5267;
+    --light-text: #8d97b0; --shadow: rgba(75, 82, 103, 0.15); --font-family: 'Kanit', sans-serif;
+}
 body {
-    font-family: 'Sarabun', sans-serif;
-    background-color: #121826; /* Dark blue background */
-    color: #F9FAFB; /* Off-white text */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    padding: 20px;
-    box-sizing: border-box;
+    font-family: var(--font-family); background-color: var(--light-blue); display: flex;
+    justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box;
 }
-
-/* --- 2. Main Container --- */
-.converter-container {
-    background-color: #1A2035; /* Slightly lighter container */
-    padding: 30px 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-    width: 100%;
-    max-width: 500px;
-    border: 1px solid #2A3045;
+.bio-card {
+    background-color: var(--white); border-radius: 24px; box-shadow: 0 10px 30px var(--shadow);
+    padding: 30px; width: 100%; max-width: 380px; text-align: center;
 }
+.profile-header { margin-bottom: 20px; }
+.profile-pic { width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--pastel-blue); object-fit: cover; margin-bottom: 15px; }
+.profile-header h1 { margin: 0; font-size: 1.8em; font-weight: 500; color: var(--dark-text); }
+.subtitle { margin: 5px 0 0; font-size: 1em; color: var(--light-text); font-weight: 300; }
+.section-title { font-weight: 500; color: var(--dark-text); margin: 25px 0 15px 0; text-align: left; border-bottom: 2px solid var(--light-blue); padding-bottom: 5px; }
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); gap: 15px; margin-bottom: 10px; }
+.skill-icon { position: relative; background: var(--light-blue); height: 50px; border-radius: 12px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease; }
+.skill-icon:hover { transform: translateY(-5px); background: var(--pastel-blue); }
+.skill-icon i { font-size: 24px; color: var(--dark-text); transition: color 0.3s ease; }
+.skill-icon:hover i { color: var(--white); }
+.skill-icon span { visibility: hidden; opacity: 0; width: max-content; background-color: var(--dark-text); color: var(--white); text-align: center; border-radius: 6px; padding: 5px 10px; position: absolute; z-index: 1; bottom: 125%; left: 50%; transform: translateX(-50%); transition: opacity 0.3s ease; font-size: 0.85em; }
+.skill-icon span::after { content: ""; position: absolute; top: 100%; left: 50%; margin-left: -5px; border-width: 5px; border-style: solid; border-color: var(--dark-text) transparent transparent transparent; }
+.skill-icon:hover span { visibility: visible; opacity: 1; }
 
-h1 {
-    font-size: 28px;
-    font-weight: 700;
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: 25px;
-    color: #FFFFFF;
-}
+/* --- ส่วนเครื่องเล่นเพลง --- */
+.music-player { padding: 0; }
+.track-info { display: flex; align-items: center; text-align: left; background: var(--light-blue); padding: 10px; border-radius: 12px; }
+.track-cover { width: 45px; height: 45px; border-radius: 8px; margin-right: 10px; object-fit: cover; }
+.track-title { margin: 0; font-weight: 500; font-size: 0.9em; color: var(--dark-text); }
+.track-artist { margin: 0; font-size: 0.8em; color: var(--light-text); }
 
-/* --- 3. Status Bar (Live Indicator) --- */
-.status-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-bottom: 25px;
-    font-size: 14px;
-    color: #8C96B3;
-}
+/* --- ส่วนควบคุมเพลง (แก้ไขใหม่) --- */
+.controls-wrapper { margin-top: 15px; }
+.progress-controls { display: flex; align-items: center; gap: 15px; }
+.progress-container { display: flex; align-items: center; flex-grow: 1; gap: 8px; }
+.progress-container span { font-size: 0.8em; color: var(--light-text); }
 
-.live-dot {
-    width: 8px;
-    height: 8px;
-    background-color: #F59E0B; /* Amber color */
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); }
-    70% { box-shadow: 0 0 0 10px rgba(245, 158, 11, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
-}
-
-/* --- 4. Conversion Form --- */
-.converter-form {
-    display: grid;
-    grid-template-columns: 1fr; /* Default for mobile */
-    gap: 15px;
-    align-items: flex-end;
-    position: relative;
-    margin-bottom: 25px;
-}
-
-/* Use 2 columns on larger screens */
-@media (min-width: 500px) {
-    .converter-form {
-        grid-template-columns: 1fr 1fr;
-        gap: 15px 20px;
-    }
-    .converter-form .form-group:first-child {
-        grid-column: 1 / -1; 
-    }
-}
-
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-}
-
-.form-group label {
-    margin-bottom: 8px;
-    font-weight: 600;
-    font-size: 14px;
-    color: #D1D5DB;
-}
-
-.form-group input, .form-group select {
-    width: 100%;
-    padding: 12px 15px;
-    font-size: 16px;
-    font-family: 'Sarabun', sans-serif;
-    font-weight: 600;
-    color: #FFFFFF;
-    background-color: #2A3045;
-    border: 1px solid #4B5563;
-    border-radius: 10px;
-    box-sizing: border-box;
-    transition: border-color 0.3s, box-shadow 0.3s;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}
-
-.form-group select {
-    background-image: url('data:image/svg+xml;utf8,<svg fill="white" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    padding-right: 40px;
-}
-
-.form-group input:focus, .form-group select:focus {
-    outline: none;
-    border-color: #3B82F6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
-}
-
-.swap-icon {
-    display: none;
-}
-
-/* --- 5. Summary Display Area --- */
-.summary-area {
-    background-color: #2A3045;
-    border-radius: 10px;
-    padding: 20px 25px;
-    border: 1px solid #4B5563;
-}
-
-#summary-title {
-    margin: 0 0 15px 0;
-    text-align: center;
-    font-size: 18px;
-    color: #D1D5DB;
-    font-weight: 600;
-}
-
-.summary-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 16px;
-    margin-bottom: 10px;
-    gap: 15px;
-}
-
-.summary-row span:first-child {
-    color: #8C96B3; /* Lighter text for labels */
-}
-
-.summary-row span:last-child {
-    font-weight: 600;
-    color: #FFFFFF;
-    text-align: right;
-}
-
-#fee-row span:last-child {
-    color: #F59E0B; /* Amber color for fee amount */
-}
-
-.summary-divider {
+/* --- ปุ่มเล่นเพลง (แก้ไขใหม่) --- */
+.control-btn {
+    background-color: var(--pastel-blue);
+    color: var(--white);
     border: none;
-    height: 1px;
-    background-color: #4B5563;
-    margin: 15px 0;
-}
-
-.summary-row.total span {
-    font-size: 20px;
-    font-weight: 700;
-    color: #FFFFFF; /* Make total stand out */
-}
-
-
-/* --- 6. Service Fee Settings Section --- */
-.fee-section {
-    margin-top: 25px;
-    padding: 20px;
-    background-color: #1A2035;
-    border: 1px solid #2A3045;
-    border-radius: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap; /* Allow wrapping on small screens */
-}
-
-.fee-toggle-group {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.fee-toggle-group h3 {
-    margin: 0;
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.hidden-checkbox {
-    display: none;
-}
-
-.toggle-switch {
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    height: 28px;
-    background-color: #4B5563;
-    border-radius: 28px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.toggle-switch::after {
-    content: '';
-    position: absolute;
-    width: 20px;
-    height: 20px;
+    width: 45px; /* ขยายปุ่ม */
+    height: 45px; /* ขยายปุ่ม */
     border-radius: 50%;
-    background-color: white;
-    top: 4px;
-    left: 4px;
-    transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
-}
-
-.hidden-checkbox:checked + .toggle-switch {
-    background-color: #3B82F6;
-}
-
-.hidden-checkbox:checked + .toggle-switch::after {
-    transform: translateX(22px);
-}
-
-.fee-input-group {
+    cursor: pointer;
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 10px;
+    font-size: 18px; /* ขยายไอคอน */
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(160, 210, 235, 0.5); /* เพิ่มเงา */
+}
+.control-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px rgba(160, 210, 235, 0.7);
 }
 
-.fee-input-group label {
-    font-size: 14px;
-    color: #D1D5DB;
+/* --- แถบเลื่อน (ใช้ร่วมกัน) --- */
+#seekBar, #volumeSlider {
+    flex-grow: 1; -webkit-appearance: none; appearance: none; height: 6px;
+    background: var(--light-blue); border-radius: 5px; cursor: pointer; outline: none;
+}
+#seekBar::-webkit-slider-thumb, #volumeSlider::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none; width: 15px; height: 15px;
+    background: var(--pastel-blue); border-radius: 50%; transition: background 0.3s;
+}
+#seekBar::-moz-range-thumb, #volumeSlider::-moz-range-thumb {
+    width: 15px; height: 15px; background: var(--pastel-blue); border-radius: 50%; border: none;
 }
 
-.fee-input-group input {
-    width: 100px; /* Increased width for THB amount */
-    padding: 8px 10px;
-    font-size: 16px;
-    font-family: 'Sarabun', sans-serif;
-    font-weight: 600;
-    color: #FFFFFF;
-    background-color: #2A3045;
-    border: 1px solid #4B5563;
-    border-radius: 8px;
-    text-align: center;
+/* --- ส่วนปรับเสียง (แก้ไขใหม่) --- */
+.volume-controls {
+    display: flex; /* นำกลับมาแสดง */
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
 }
+.volume-controls i { color: var(--light-text); font-size: 0.9em; }
+#volumeSlider { max-width: 150px; /* กำหนดความกว้างสูงสุด */ margin: 0 auto; }
 
-.fee-input-group input:focus {
-    outline: none;
-    border-color: #3B82F6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
-}
-
-/* --- 7. Footer --- */
-.footer {
-    text-align: center;
+/* --- ส่วน Social Links --- */
+.social-links {
+    border-top: 1px solid var(--light-blue);
+    padding-top: 20px;
     margin-top: 30px;
-    font-size: 12px;
-    color: #8C96B3;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
-
-.footer a {
-    color: #A5B4FC;
-    text-decoration: none;
-    font-weight: 600;
+.social-links a {
+    color: var(--light-text); text-decoration: none; font-size: 0.9em;
+    transition: all 0.3s ease; display: flex; align-items: center; gap: 8px;
 }
-
-.footer a:hover {
-    text-decoration: underline;
+.social-links a:hover {
+    color: var(--dark-text); /* เปลี่ยนสีเมื่อชี้ */
+    transform: translateY(-3px);
 }
+.social-links a i { font-size: 1.4em; } /* ขยายไอคอน */
